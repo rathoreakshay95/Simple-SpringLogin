@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+<!--This tag used to scan all the stereo type annotations  -->
+<context:component-scan base-package="org.govind"/>
+
+<!--This tag is used to tell that we are using annotations  -->
+<context:annotation-config/>
+
+<!--PropertyPlaceholderConfigurer class configured to load the property files  -->
+<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	<property name="locations">
+		<list>
+			<value>classpath:database.properties</value>
+		</list>
+	</property>
+</bean>
+
+<!--DriverManagerDataSource class configured to create connection to database  -->
+<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	<property name="driverClassName" value="${jdbc.driverClassName}"/>
+	<property name="url" value="${jdbc.url}"/>
+	<property name="username" value="${jdbc.username}"/>
+	<property name="password" value="${jdbc.password}"/>
+</bean>
+
+<!--JdbcTemplate class configured to create datasource for database  -->
+<bean id="jdbcTemplete" class="org.springframework.jdbc.core.JdbcTemplate">
+	<property name="dataSource" ref="dataSource"></property>
+</bean>
+
+<!--InternalResourceViewResolver class configured to resolve views from controller to the jsp pages  -->
+<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	<property name="prefix" value="/WEB-INF/views/"/>
+	<property name="suffix" value=".jsp"/>
+</bean>
+
+</beans>

@@ -1,0 +1,11 @@
+//execute this statements into mysql to create database and table to run this project successfully
+
+create database springdb;
+use springdb;
+create table login(id varchar(50),password varchar(50));
+insert into login values('govinda','rathore');
+select * from login;
+
+
+
+
